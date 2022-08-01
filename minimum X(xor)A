@@ -1,0 +1,82 @@
+// { Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int minVal(int a, int b) {
+        // code here
+        int b1=__builtin_popcount(b);
+        int a1=__builtin_popcount(a);
+        vector<int> a_vec;
+        if(b1==a1)
+        return a;
+        int temp=a;
+        while(temp>0)
+        {
+            if(temp%2==1)
+            a_vec.push_back(1);
+            else
+            a_vec.push_back(0);
+            temp=temp/2;
+        }
+        int ans=0;
+        if(b1<a1){
+            for(int i=a_vec.size()-1;i>=0;i--)
+            {
+                if(b1>0){
+                if(a_vec[i]==1){
+                ans+=pow(2,i);
+                b1--;}}
+                else 
+                break;
+            }
+            return ans;
+        }
+        else
+        {
+            ans=a;
+            b1-=a1;
+            for(int i=0;i<a_vec.size();i++)
+            {
+                if(b1>0){
+                if(a_vec[i]==0){
+                ans+=pow(2,i);
+                b1--;}}
+                else
+                break;
+            }
+            int ind=a_vec.size();
+            while(b1>0)
+            {
+                ans+=pow(2,ind);
+                b1--;
+                ind++;
+            }
+            return ans;
+        }
+    }
+};
+
+// { Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int a, b;
+        cin >> a >> b;
+
+        Solution ob;
+        cout << ob.minVal(a, b);
+
+        cout << "\n";
+    }
+
+    return 0;
+}  // } Driver Code Ends
